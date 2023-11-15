@@ -15,6 +15,11 @@ export default function Home() {
     setNama(input || 'Nurfadillah');
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    handlerTampilkanNama();
+  };
+
   return (
     <div className='body'>
       <div className='container'>
@@ -36,17 +41,19 @@ export default function Home() {
           </div>
         </div>
         <div className='cta-banner'>
-          <div className='inputan'>
-            <input
-            type="text"
-            value={input}
-            onChange={handlerGantiNama}
-            placeholder="Masukkan nama"
-            />
-          </div>
-          <div className='button'>
-            <button onClick={handlerTampilkanNama}>Submit</button>
-          </div>
+          <form onSubmit={handleSubmit}>
+            <div className='inputan'>
+              <input
+                type="text"
+                value={input}
+                onChange={handlerGantiNama}
+                placeholder="Masukkan nama"
+              />
+            </div>
+            <div className='button'>
+              <button type="submit">Submit</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>

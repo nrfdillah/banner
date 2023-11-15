@@ -20,7 +20,7 @@ img {
 }
 
 .body {
-  background-color: #b8b8cc;
+  background-color: #d9d0d2;
 
   width: 100vw;
   height: 100vh;
@@ -88,7 +88,7 @@ button {
   padding: 10px 20px;
   width: 100%;
   border-radius: 12px;
-  background: #fa4b7a;
+  background: #cc4b76;
   text-align: center;
   font-size: 15px;
   justify-content: center;
@@ -97,7 +97,7 @@ button {
 }
 
 button:hover {
-  background: #ff6c9c;
+  background: #d95e94;
 }
 
 @media screen and (max-width: 414px) {
