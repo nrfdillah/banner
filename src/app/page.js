@@ -1,21 +1,24 @@
 'use client'
 
 import { useState } from 'react'
+import '@styles/home.css'
 
 export default function Home() {
 
   const [input, setInput] = useState('');
+  const [isInputEmpty, setIsInputEmpty] = useState(true);
   const [nama, setNama] = useState('Nurfadillah');
 
   const handlerGantiNama = (event) => {
     setInput(event.target.value);
+    setIsInputEmpty(event.target.value === '');
   };
 
   const handlerTampilkanNama = () => {
     setNama(input || 'Nurfadillah');
   };
 
-  const handleSubmit = (event) => {
+  const handlerSubmit = (event) => {
     event.preventDefault();
     handlerTampilkanNama();
   };
@@ -41,7 +44,7 @@ export default function Home() {
           </div>
         </div>
         <div className='cta-banner'>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handlerSubmit}>
             <div className='inputan'>
               <input
                 type="text"
@@ -50,7 +53,7 @@ export default function Home() {
                 placeholder="Masukkan nama"
               />
             </div>
-            <div className='button'>
+            <div className={`button ${isInputEmpty ? 'empty' : 'not-empty'}`}>
               <button type="submit">Submit</button>
             </div>
           </form>

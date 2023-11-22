@@ -1,15 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700&display=swap");
-
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  text-decoration: none;
-}
-
 h1, p {
   color: #000000;
-  font-family: "Plus Jakarta Sans";
+  
 }
 
 img {
@@ -17,19 +8,6 @@ img {
   height: 120px;
   position: relative;
   border-radius: 24px;
-}
-
-.body {
-  background-color: #d9d0d2;
-
-  width: 100vw;
-  height: 100vh;
-
-  display: flex;
-  flex-direction: column;
-
-  align-items: center;
-  justify-content: center;
 }
 
 .container {
@@ -96,8 +74,13 @@ button {
   border: none;
 }
 
-button:hover {
-  background: #d95e94;
+.button.empty button {
+  background-color: #919aa8;
+  
+}
+
+.button.not-empty button {
+  background-color: #cc4b76;
 }
 
 @media screen and (max-width: 414px) {
