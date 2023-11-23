@@ -40,6 +40,7 @@ export default function Home() {
             <div className='nim-bio'>
               <p>D121211004</p>
               <p>Fakultas Teknik</p>
+              <p>halo</p>
             </div>
           </div>
         </div>
