@@ -13,7 +13,7 @@
 .p-diary{
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   align-self: stretch;
   overflow: hidden;
   color: #1E1E1E;
@@ -39,4 +39,5 @@ li{
 
 h1 {
   font-size : 28px;
+  color: black;
 }

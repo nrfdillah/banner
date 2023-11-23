@@ -11,13 +11,14 @@
 body {
     background-color: #d9d0d2;
     width: 100vw;
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
+    padding-top:150px;
     flex-direction: column;
     row-gap:12px;
     align-items: center;
-    justify-content: center;
-    padding: 32px;
+    justify-content: flex-start;
+    overlow-x:hidden;
 }
 
 @media screen and (max-width: 414px) {
