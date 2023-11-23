@@ -82,9 +82,3 @@ button {
 .button.not-empty button {
   background-color: #cc4b76;
 }
-
-@media screen and (max-width: 414px) {
-  .container {
-    width: 100%;
-  }
-}
