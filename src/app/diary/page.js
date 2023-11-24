@@ -7,6 +7,9 @@ import Link from "next/link";
 export default function Diary() {
   const [judul, setJudul] = useState([]);
   const [isi_diary, setIsiDiary] = useState([]);
+  const [input, setInput] = useState('');
+  const [nama, setNama] = useState('Nurfadillah');
+  const [isInputEmpty, setIsInputEmpty] = useState(true);
 
   const endpointAPI = "https://6555c0d084b36e3a431e3e98.mockapi.io/diary";
 
@@ -21,12 +24,46 @@ export default function Diary() {
     setIsiDiary(isi_diary);
   }
 
+  const handlerTampilkanNama = () => {
+    setNama(input);
+  };
+
+  const handlerSubmit = () => {
+    handlerTampilkanNama();
+  };
+
+  const handlerGantiNama = (event) => {
+    setInput(event.target.value);
+    setIsInputEmpty(event.target.value === '');
+  };
+
+  const [tulis, setTulis] = useState("");
+  const [diary, setDiary] = useState();
+
+
   useEffect(() => {
     getDiary();
   }, []);
 
   return (
     <div>
+      <div className="diary-post">
+        <div className='cta-banner'>
+          <form onSubmit={handlerSubmit}>
+            <div className='inputan'>
+              <input
+                type="text"
+                value={input}
+                onChange={handlerGantiNama}
+                placeholder="Masukkan nama"
+              />
+            </div>
+            <div className={`button ${isInputEmpty ? 'empty' : 'not-empty'}`}>
+              <button type="submit">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
       {judul.length > 0 ? (
         <ul>
           {judul.map((item, idx) => (
