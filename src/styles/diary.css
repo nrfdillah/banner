@@ -1,3 +1,57 @@
+.diary-post {
+  display: flex;
+  width: 442px;
+  padding: 24px;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-shrink: 0;
+  background-color: white;
+  border-radius: 24px;
+  margin-bottom: 32px;
+}
+
+.cta-banner{
+  width: 100%;
+}
+
+input {
+  display: flex;
+  padding: 10px 20px;
+  width: 100%;
+  border-radius: 12px;
+  background: #ffffff;
+  font-size: 15px;
+  margin-bottom:10px;
+}
+
+.button-diary{
+  display: flex;
+  padding: 10px 20px;
+  width: 100%;
+  border-radius: 12px;
+  background: #cc4b76;
+  text-align: center;
+  font-size: 15px;
+  justify-content: center;
+  border: none;
+}
+
+.button-diary p{
+  font-weight: 700;
+}
+
+.disabled{
+  color: #ffffff;
+  background-color: #919aa8;
+  display: flex;
+  padding: 10px 0px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  align-self: stretch;
+  border-radius: 12px;
+}
+
 .diary-container{
   display: flex;
   width: 442px;
@@ -5,15 +59,15 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 10px;
+  flex-shrink: 0;
+  background-color: white;
   border-radius: 24px;
-  background: #FFF;
-  box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.02);
 }
 
-.p-diary{
+.p-diary {
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   align-self: stretch;
   overflow: hidden;
   color: #1E1E1E;
@@ -25,42 +79,20 @@
   line-height: normal;
 }
 
-.diary-post input{
-  display: flex;
-  padding: 10px 20px;
-  gap: 10px;
-  width: 100%;
-  border-radius: 12px;
-  background: #ffffff;
-  font-size: 15px;
-}
-
-.diary-post button{
-  display: flex;
-  padding: 10px 20px;
-  width: 100%;
-  border-radius: 12px;
-  background: #cc4b76;
-  text-align: center;
-  font-size: 15px;
-  justify-content: center;
-  color: #ffffff;
-  border: none;
-}
-
-ul{
+ul {
   display: flex;
   flex-direction: column;
   row-gap: 12px;
-  overflow-y: auto;
-
-}
-
-li{
-  list-style-type: none;
 }
 
 h1 {
-  font-size : 28px;
-  color: black;
+  color: #1E1E1E;
+}
+
+li {
+  list-style-type: none;
+}
+
+div.last-item {
+  margin-bottom: 120px;
 }

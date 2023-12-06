@@ -5,40 +5,84 @@ import axios from "axios";
 import Link from "next/link";
 
 export default function Diary() {
-  const [judul, setJudul] = useState([]);
-  const [isi_diary, setIsiDiary] = useState([]);
-  const [input, setInput] = useState('');
-  const [nama, setNama] = useState('Nurfadillah');
-  const [isInputEmpty, setIsInputEmpty] = useState(true);
-
+  const [diaryJudul, setJudul] = useState([]);
+  const [diaryIsi, setIsiDiary] = useState([]);
+  const [koleksiData, setKoleksiData] = useState([]);
   const endpointAPI = "https://6555c0d084b36e3a431e3e98.mockapi.io/diary";
 
   async function getDiary() {
-    const res = await axios.get(endpointAPI);
-    const data = res.data;
+    try {
+      const res = await axios.get(endpointAPI);
 
-    const judul = data.map((item) => item.judul);
-    setJudul(judul);
+      //data
+      const dataJSON = res.data;
+      console.log("DATA DALAM", dataJSON);
+      setKoleksiData(dataJSON);
 
-    const isi_diary = data.map((item) => item.isi_diary);
-    setIsiDiary(isi_diary);
+      //judul
+      const judul = dataJSON.map((item) => item.judul);
+      console.log("JUDUL DALAM", judul);
+      setJudul(judul);
+
+      //isi diary
+      const isi_diary = dataJSON.map((item) => item.isi_diary);
+      console.log("ISI DALAM", isi_diary);
+      setIsiDiary(isi_diary);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   }
 
-  const handlerTampilkanNama = () => {
-    setNama(input);
-  };
+  //POST DIARY
+  const [postTulisJudul, setPostJudul] = useState("");
+  const [postTulisDiary, setPostDiary] = useState("");
 
-  const handlerSubmit = () => {
-    handlerTampilkanNama();
-  };
+  async function postDiary() {
+    const updatedDiary = [
+      ...koleksiData,
+      { judul: postTulisJudul, 
+        isi_diary: postTulisDiary },
+    ];
 
-  const handlerGantiNama = (event) => {
-    setInput(event.target.value);
-    setIsInputEmpty(event.target.value === '');
-  };
+    console.log("PRINTING ISI UPDATED DIARY:\n", updatedDiary);
+    getDiary(updatedDiary);
+    
+    setPostJudul("");
+    setPostDiary("");
 
-  const [tulis, setTulis] = useState("");
-  const [diary, setDiary] = useState();
+    try {
+      const res = await axios.post(endpointAPI, {
+        judul: postTulisJudul,
+        isi_diary: postTulisDiary,
+      });
+      
+      if (res.status >= 200 && res.status < 300) {
+        console.log("POST response:", res.data);
+        getDiary();
+      } else {
+        throw new Error("Network response was not ok");
+      }
+    } catch (error) {
+      alert("failed to POST APIE" + error);
+    }
+  }
+
+  function handlerJudul(event) {
+    event.preventDefault();
+    setPostJudul(event.target.value);
+  }
+  function handlerIsiDiary(event) {
+    event.preventDefault();
+    setPostDiary(event.target.value);
+  }
+
+  function handlerKeyEnter(e) {
+    e.preventDefault;
+    if (e.key === "Enter") {
+      setPostJudul(e.target.value);
+      getDiary(postTulisJudul);
+    }
+  }
 
 
   useEffect(() => {
@@ -49,37 +93,58 @@ export default function Diary() {
     <div>
       <div className="diary-post">
         <div className='cta-banner'>
-          <form onSubmit={handlerSubmit}>
-            <div className='inputan'>
-              <input
-                type="text"
-                value={input}
-                onChange={handlerGantiNama}
-                placeholder="Masukkan nama"
-              />
+          <input
+            type="text"
+            value={postTulisJudul}
+            onChange={handlerJudul}
+            onKeyDown={handlerKeyEnter}
+            placeholder="Masukkan judul diary"
+          />
+          <input
+            type="text"
+            value={postTulisDiary}
+            onChange={handlerIsiDiary}
+            onKeyDown={handlerKeyEnter}
+            placeholder="Masukkan isi diary"
+          />
+          {postTulisJudul && postTulisDiary ? (
+            <div className="button-diary" onClick={postDiary}>
+              <p>Submit Diary</p>
             </div>
-            <div className={`button ${isInputEmpty ? 'empty' : 'not-empty'}`}>
-              <button type="submit">Submit</button>
+          ) : (
+            <div
+              className="disabled"
+              onClick={() => alert("Isi terlebih dahulu!")}
+            >
+              <p>Disabled</p>
             </div>
-          </form>
+          )}
         </div>
       </div>
-      {judul.length > 0 ? (
-        <ul>
-          {judul.map((item, idx) => (
-            <Link href={`/diary/${item}/${isi_diary[idx]}`}>
-            <li key={idx}>
-              <div className="diary-container">
-                  <h1>{judul[idx]}</h1>
-                  <p className="p-diary">{isi_diary[idx]}</p>
-              </div>
-            </li>
-            </Link>
-          ))}
-        </ul>
+      {koleksiData ? (
+        diaryJudul.length > 0 ? (
+          <ul>
+            {diaryJudul.map((item, idx) => (
+              <Link href={`/diary/${item}/${diaryIsi[idx]}`}>
+                <li key={idx}>
+                  <div
+                    className={`diary-container ${
+                      idx === diaryJudul.length - 1 ? "last-item" : ""
+                    }`}
+                  >
+                    <h1>{diaryJudul[idx]}</h1>
+                    <p className="p-diary">{diaryIsi[idx]}</p>
+                  </div>
+                </li>
+              </Link>
+            ))}
+          </ul>
+        ) : (
+          "API is loading"
+        )
       ) : (
-        "API is loading"
+        "API is empty"
       )}
-    </div>
-  );
+    </div>
+  );
 }
